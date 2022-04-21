@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 10:36:24 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/19 17:39:42 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/21 12:12:43 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,26 @@ int	ft_atoi(const char *str)
 	return (result * negative);
 }
 
-void	msleep(int time)
+long long	get_time(void)
 {
-	usleep(time * 1000);
+	struct timeval	timer;
+	long long		result;
+
+	gettimeofday(&timer, NULL);
+	result = (long long)timer.tv_sec * 1000000;
+	result = result + (long long)timer.tv_usec;
+	result = result / 1000;
+	return (result);
+}
+
+void	ft_msleep(int time, long long start)
+{
+	long long	cur;
+
+	cur = 0;
+	while (cur < (long long)time)
+	{
+		cur = get_time() - start;
+		usleep(100);
+	}
 }

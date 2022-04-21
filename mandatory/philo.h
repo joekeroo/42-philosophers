@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:29:18 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/19 17:40:37 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/21 14:57:01 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_philo
 {
 	pthread_t		philo;
 	pthread_mutex_t	fork;
-	long long		start_time;
+	int				eat_count;
 	long long		death_time;
 }	t_philo;
 
@@ -41,24 +41,26 @@ typedef struct s_table
 	t_philo			*group;
 	pthread_t		death;
 	pthread_mutex_t	mutex;
+	int				start_routine;
+	int				start_death;
 	int				curr_philo;
-	int				curr_death;
+	int				done_eating;
+	int				p_death;
 	int				n_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				philo_eat_count;
-	long long		timestamp;
 }	t_table;
 
+int			ft_atoi(const char *str);
+long long	get_time(void);
+void		ft_msleep(int time, long long start);
 void		philo(t_table *table);
 void		table_init(t_table *table, int argc, char **argv);
+void		philo_live(t_table *table, int philo);
 void		philo_eat(t_table *table, int philo);
 void		philo_sleep(t_table *table, int philo);
 void		philo_think(t_table *table, int philo);
-void		free_malloc(t_table *table);
-void		msleep(int time);
-int			ft_atoi(const char *str);
-long long	get_time(void);
 
 #endif
