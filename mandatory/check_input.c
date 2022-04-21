@@ -1,30 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 14:27:03 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/21 18:14:24 by jhii             ###   ########.fr       */
+/*   Created: 2022/04/21 17:51:06 by jhii              #+#    #+#             */
+/*   Updated: 2022/04/21 18:15:04 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+static	int	ft_isdigit(char c)
 {
-	t_table	table;
+	int	chr;
 
-	if (argc != 5 && argc != 6)
-		return (0);
-	if (check_input(argc, argv) < 0)
+	chr = '0';
+	while (chr <= '9')
 	{
-		printf("Error\n");
-		return (0);
+		if (c == chr)
+			return (1);
+		chr++;
 	}
-	table_init(&table, argc, argv);
-	philo(&table);
-	free(table.group);
-	return (0);
+	return (-1);
+}
+
+static	int	check_digit(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isdigit(s[i]) < 0)
+			return (-1);
+		i++;
+	}
+	return (1);
+}
+
+int	check_input(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (check_digit(argv[i]) < 0)
+			return (-1);
+		i++;
+	}
+	return (1);
 }

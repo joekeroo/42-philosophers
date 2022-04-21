@@ -6,7 +6,7 @@ PTHREAD = -pthread
 RM = rm -f
 
 MAIN = main.c
-SRC = philo.c philo_utils.c main_utils.c
+SRC = philo.c philo_utils.c main_utils.c check_input.c
 OBJ = ${SRC:.c=.o}
 
 all: ${NAME}
