@@ -2,7 +2,7 @@ NAME = philo_bonus
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I.# -fsanitize=address -g3
-PTHREAD = -pthread
+PTHREAD = -lpthread
 RM = rm -f
 
 MAIN = main.c

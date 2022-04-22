@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:38:56 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/22 13:47:09 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/22 16:31:10 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,62 @@
 static	void	*check_death(void *oldtable)
 {
 	t_table		*table;
-	int			philo;
 	long long	timestamp;
 
-	philo = 0;
 	table = oldtable;
-	while (table->start_death == 0)
-		usleep(table->n_philo);
-	while (philo < table->n_philo && table->p_death == 0)
+	while (1)
 	{
 		timestamp = get_time();
-		if (table->done_eating == table->n_philo)
-			table->p_death = 1;
-		if (timestamp > table->group[philo].death_time && table->p_death == 0)
+		if (table->done_eating >= 1)
+			exit(0);
+		if (timestamp > table->group[table->philo].death_time)
 		{
-			printf(RED "%lld %d died\n", timestamp, philo);
-			table->p_death = 1;
+			printf(RED "%lld %d died\n", timestamp, table->philo);
+			exit(0);
 		}
-		if (philo == table->n_philo - 1)
-			philo = 0;
-		else
-			philo++;
 	}
 	return (0);
 }
 
-static	void	*routine(void *oldtable)
-{
-	int		i;
-	int		philo;
-	t_table	*table;
-
-	table = oldtable;
-	pthread_mutex_lock(&table->mutex);
-	philo = table->curr_philo++;
-	pthread_mutex_unlock(&table->mutex);
-	while (table->start_routine == 0)
-		usleep(table->n_philo);
-	philo_think(table, philo);
-	if (philo % 2 == 0)
-		usleep(table->time_to_eat * 500);
-	table->start_death = 1;
-	i = 0;
-	while (i < table->philo_eat_count && table->p_death == 0)
-	{
-		philo_live(table, philo);
-		i++;
-	}
-	return (0);
-}
-
-void	philo(t_table *table, int argc, char **argv)
+static	void	routine(t_table *table, int philo)
 {
 	int	i;
 
 	i = 0;
-	table_init(table, argc, argv);
-	pthread_mutex_init(&table->mutex, NULL);
-	while (i < table->n_philo)
-		pthread_mutex_init(&table->group[i++].fork, NULL);
-	i = 0;
-	while (i < table->n_philo)
-		pthread_create(&table->group[i++].philo, NULL, *routine, table);
-	table->start_routine = 1;
+	philo_think(table, philo);
 	pthread_create(&table->death, NULL, *check_death, table);
+	while (i < table->philo_eat_count)
+	{
+		sem_wait(&table->group[philo].mutex);
+		philo_eat(table, philo);
+		sem_post(&table->group[(philo + 1) % table->n_philo].mutex);
+		philo_sleep(table, philo);
+		i++;
+	}
 	pthread_join(table->death, NULL);
+	exit(0);
+}
+
+static	void	fork_philos(t_table *table)
+{
+	int	i;
+
 	i = 0;
 	while (i < table->n_philo)
-		pthread_join(table->group[i++].philo, NULL);
+	{
+		table->philo = i;
+		table->group[i].pid = fork();
+		if (table->group[i].pid == 0)
+			return (routine(table, i));
+		i++;
+	}
+	mulwaitpid(table);
+	exit(0);
+}
+
+void	philo(t_table *table, int argc, char **argv)
+{
+	table_init(table, argc, argv);
+	fork_philos(table);
 	return ;
 }

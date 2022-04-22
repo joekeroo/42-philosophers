@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 10:36:24 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/21 15:11:06 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/22 14:11:13 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int	ft_atoi(const char *str)
 			return (0);
 	}
 	return (result * negative);
+}
+
+void	mulwaitpid(t_table *table)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	while (i < table->n_philo)
+		waitpid(table->group[i++].pid, &status, 0);
 }
 
 long long	get_time(void)
