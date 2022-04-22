@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:29:18 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/21 15:10:28 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/22 13:42:07 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_table
 	int				philo_eat_count;
 }	t_table;
 
+int			check_input(int argc, char **argv);
 int			ft_atoi(const char *str);
 long long	get_time(void);
 void		ft_msleep(int time, long long start);
