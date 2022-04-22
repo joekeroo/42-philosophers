@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:38:56 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/21 15:10:48 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/22 13:47:09 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ static	void	*routine(void *oldtable)
 	return (0);
 }
 
-void	philo(t_table *table)
+void	philo(t_table *table, int argc, char **argv)
 {
 	int	i;
 
 	i = 0;
+	table_init(table, argc, argv);
 	pthread_mutex_init(&table->mutex, NULL);
 	while (i < table->n_philo)
 		pthread_mutex_init(&table->group[i++].fork, NULL);

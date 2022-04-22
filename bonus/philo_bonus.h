@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:29:18 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/22 13:42:07 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/22 13:46:02 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			check_input(int argc, char **argv);
 int			ft_atoi(const char *str);
 long long	get_time(void);
 void		ft_msleep(int time, long long start);
-void		philo(t_table *table);
+void		philo(t_table *table, int argc, char **argv);
 void		table_init(t_table *table, int argc, char **argv);
 void		philo_live(t_table *table, int philo);
 void		philo_eat(t_table *table, int philo);
