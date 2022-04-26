@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:38:56 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/26 16:40:42 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/26 17:01:58 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static	void	routine(t_table *table)
 		sem_wait(table->fork_mutex);
 		print_msg(table, "has taken a fork");
 		print_msg(table, "is eating");
-		ft_msleep(table->time_to_eat, table);
 		table->life = get_time();
+		ft_msleep(table->time_to_eat, table);
 		sem_post(table->fork_mutex);
 		sem_post(table->fork_mutex);
 		table->eat_count += 1;
