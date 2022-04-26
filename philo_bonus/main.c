@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:27:03 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/22 13:45:36 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/26 14:04:44 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 		return (0);
 	}
-	philo(&table, argc, argv);
+	philo_bonus(&table, argc, argv);
 	return (0);
 }

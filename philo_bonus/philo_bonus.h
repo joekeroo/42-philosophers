@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:29:18 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/22 16:24:18 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:45:06 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,19 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <sys/time.h>
-# include <sys/wait.h>
-
-typedef struct s_philo
-{
-	pthread_t	philo;
-	sem_t		mutex;
-	pid_t		pid;
-	int			eat_count;
-	long long	death_time;
-}	t_philo;
+# include <signal.h>
 
 typedef struct s_table
 {
-	t_philo		*group;
 	pthread_t	death;
-	int			philo;
-	int			done_eating;
+	sem_t		*fork_mutex;
+	sem_t		*print_mutex;
+	pid_t		*pid;
+	int			stop;
+	int			index;
+	long long	life;
+	int			p_death;
+	int			eat_count;
 	int			n_philo;
 	int			time_to_die;
 	int			time_to_eat;
@@ -54,13 +50,11 @@ typedef struct s_table
 
 int			check_input(int argc, char **argv);
 int			ft_atoi(const char *str);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 long long	get_time(void);
-void		mulwaitpid(t_table *table);
-void		ft_msleep(int time, long long start);
-void		philo(t_table *table, int argc, char **argv);
+void		print_msg(t_table *table, char *str);
+void		ft_msleep(long long time, t_table *table);
 void		table_init(t_table *table, int argc, char **argv);
-void		philo_eat(t_table *table, int philo);
-void		philo_sleep(t_table *table, int philo);
-void		philo_think(t_table *table, int philo);
+void		philo_bonus(t_table *table, int argc, char **argv);
 
 #endif

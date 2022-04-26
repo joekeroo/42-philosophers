@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 10:36:24 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/22 14:11:13 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:25:14 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,15 @@ int	ft_atoi(const char *str)
 	return (result * negative);
 }
 
-void	mulwaitpid(t_table *table)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
-	int	status;
+	unsigned long	i;
 
 	i = 0;
-	while (i < table->n_philo)
-		waitpid(table->group[i++].pid, &status, 0);
-}
-
-long long	get_time(void)
-{
-	struct timeval	timer;
-	long long		result;
-
-	gettimeofday(&timer, NULL);
-	result = (long long)timer.tv_sec * 1000000;
-	result = result + (long long)timer.tv_usec;
-	result = result / 1000;
-	return (result);
-}
-
-void	ft_msleep(int time, long long start)
-{
-	long long	cur;
-
-	cur = 0;
-	while (cur < (long long)time)
-	{
-		cur = get_time() - start;
-		usleep(100);
-	}
+	while (i < n && s1[i] && s1[i] == s2[i])
+		i++;
+	if (i == n)
+		return (0);
+	else
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
