@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:38:56 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/21 14:58:48 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/27 16:39:49 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static	void	*routine(void *oldtable)
 	i = 0;
 	while (i < table->philo_eat_count && table->p_death == 0)
 	{
+		if (table->n_philo == 1)
+			return (0);
 		philo_live(table, philo);
 		i++;
 	}
