@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:38:56 by jhii              #+#    #+#             */
-/*   Updated: 2022/04/26 17:01:58 by jhii             ###   ########.fr       */
+/*   Updated: 2022/04/28 14:02:31 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static	void	end_routine(t_table *table)
 		{
 			i = 0;
 			while (i < table->n_philo)
-				kill(table->pid[i++], SIGKILL);
+				kill(table->pid[i++], SIGTERM);
 			break ;
 		}
 		i++;
